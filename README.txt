@@ -1,0 +1,1 @@
+This is a practice code using an array to create flashing ellipses. Enjoy!
