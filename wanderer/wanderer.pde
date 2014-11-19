@@ -11,13 +11,14 @@ void setup() {
   vel=new PVector(1,5);
   
   a=new PVector(0,0);
+  colorMode(HSB,360,100,100,100);
 }
 
 void draw() {
   vel.add(a);
   loc.add(vel);
 
-fill(random(255),random(255),random(255));
+fill(frameCount%360,100,100);
   ellipse(loc.x, loc.y, sz, sz);
 
   if (loc.x<0) {
