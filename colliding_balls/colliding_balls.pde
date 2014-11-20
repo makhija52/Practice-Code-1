@@ -1,5 +1,7 @@
 float x, y, sz;
 PVector loc, mouse, vel, a;
+float x2, y2, sz2;
+PVector loc2, vel2, a2;
 void setup() {
   size(800, 600);
   x=width/2;
@@ -9,6 +11,13 @@ void setup() {
   mouse=new PVector();
   vel=PVector.random2D();
   a=new PVector(0, 0);
+  x=width/2+50;
+  y=height/2+50;
+  
+  loc2=new PVector(x2, y2);
+  sz2=100;
+  vel2=PVector.random2D();
+  a2=new PVector(0, 0);
 }
 
 void draw() {
