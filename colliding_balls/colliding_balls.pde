@@ -1,102 +1,57 @@
-int count=2;
-float [] x;
-float [] y;
-float [] sz;
-PVector [] loc;
-PVector [] mouse;
-PVector [] vel;
-PVector[] a;
-float []x2;
-float []y2;
-float []sz2;
-PVector loc2;
-PVector[] vel2; 
-PVector[] a2;
+int count = 10;
+
+PVector[] loc = new PVector[count];
+PVector[] vel = new PVector[count];
+PVector[] a = new PVector[count];
+float[] sz = new float[count];
+float[] mass = new float[count];
+int minDiam = 10;
+int maxDiam = 60;
+
 void setup() {
   size(800, 600);
-  for (int i=0; i<count; i++) {
-    sz[i]=random(20, 50); 
-
-
-    loc[i]=new PVector(random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));
-
-    vel[i]=PVector.random2D();
-    a[i]=new PVector(0, 0);
+  for (int i = 0; i < count; i++) {    
+    sz[i] = random(minDiam, maxDiam);   
+    loc[i] = new PVector(random(sz[i], width-sz[i]), random(sz[i], height-sz[i]));  //initialize values for location array
+    vel[i] = PVector.random2D();       
+    a[i] = new PVector(0, 0);       
+    mass[i] = map(sz[i], minDiam, maxDiam, .1, 1.5);
   }
+}
 
-  void draw() {
-    background(0);
-    mouse.set(mouseX, mouseY);
-    if (dist(mouse.x, mouse.y, loc.x, loc.y) < sz/2) {
-      println("ouch"); 
-      fill(255, 0, 0);
-      loc.x=random(width);
-      loc.y=random(height);
-    } else {
-      fill(0, 255, 0);
-    }
-    ellipse(loc.x, loc.y, sz, sz);
-    vel.add(a);
-    loc.add(vel);
+void draw() {
+  background(0);
 
-    if (loc.x+sz/2>=width) {
-      vel.x=-abs(vel.x);
-    }
-    if (loc.y+sz/2>=height) {
-      vel.y=-abs(vel.y);
-    }
-    if (loc.x-sz/2<=0) {
-      vel.x=abs(vel.x);
-    }
-    if (loc.y-sz/2<=0) {
-      vel.y=abs(vel.y);
-    }
-    ///////////////////////////////////////////////////
-    mouse.set(mouseX, mouseY);
-    if (dist(mouse.x, mouse.y, loc.x, loc.y) < sz/2) {
-      println("ouch2"); 
-      fill(255, 0, 0);
-      loc2.x=random(width);
-      loc2.y=random(height);
-    } else {
-      fill(0, 255, 0);
-    }
-    ellipse(loc2.x, loc2.y, sz2, sz2);
-    vel2.add(a2);
-    loc2.add(vel2);
+  for (int i = 0; i < count; i++) {   
 
-    if (loc2.x+sz2/2>=width) {
-      vel2.x=-abs(vel2.x);
-    }
-    if (loc2.y+sz2/2>=height) {
-      vel2.y=-abs(vel2.y);
-    }
-    if (loc2.x-sz2/2<=0) {
-      vel2.x=abs(vel2.x);
-    }
-    if (loc2.y-sz2/2<=0) {
-      vel2.y=abs(vel2.y);
-    }
-    ////////////////////////////////////////
-    if (loc.dist(loc2) < sz/2 + sz2/2) { 
-      if (loc.x < loc2.x) {  
-        vel.x = -abs(vel.x);
-        vel2.x = abs(vel2.x);
-        fill(255, 0, 0);
-      } else {
-        vel.x = abs(vel.x);
-        vel2.x = -abs(vel2.x);
-        fill(0, 0, 255);
-      }
-      if (loc.y < loc2.y) {
-        vel.y = -abs(vel.y);
-        vel2.y = abs(vel2.y);
-        fill(255, 0, 0);
-      } else {
-        vel.y = abs(vel.y);
-        vel2.y = -abs(vel2.y);
-        fill(0, 0, 255);
+    vel[i].add(a[i]);
+    loc[i].add(vel[i]);
+
+
+    for (int j = 0; j < count; j++) {
+      if (i!=j) {
+        if (loc[i].dist(loc[j]) < sz[i]/2 + sz[j]/2) { 
+          vel[i] = PVector.sub(loc[i], loc[j]);     
+          vel[i].normalize();                        
+          vel[i].div(mass[i]);
+        }
       }
     }
+
+ 
+    ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
+
+   
+    if (loc[i].x + sz[i]/2 > width || loc[i].x - sz[i]/2 < 0) {
+      vel[i].x *= -1;
+    }
+    if (loc[i].y + sz[i]/2 > height || loc[i].y - sz[i]/2 < 0) {
+      vel[i].y *= -1;
+    }
   }
+}
+
+void mouseReleased() {
+  loc[0].set(mouseX, mouseY);
+}
 
