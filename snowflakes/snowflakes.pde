@@ -22,12 +22,15 @@ void draw(){
   for(int i=0;i<count;i++){
  vel[i].add(a[i]);
     loc[i].add(vel[i]);
-    vel[i].limit(3);
+    vel[i].limit(10);
    
     ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
     
     a[i].x = random(-.1, .1);
-  
+   if (loc[i].y - sz[i]/2 > height) {
+      loc[i].set(random(width), random(-height, -sz[i]/2));
+      vel[i].set(0, 1);
+    }
   }
   
   }
