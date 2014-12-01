@@ -1,0 +1,11 @@
+object oriented programing is a way of giving entities to objects
+
+class-complex data type which contains multiple values and methods(functions that are part of a class)
+
+object-particular instance of a class
+
+property-varaible contained by a class
+
+method-function of a class
+
+constructor-initialize an individual object of a class
