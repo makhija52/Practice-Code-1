@@ -1,8 +1,10 @@
-GravityBall ball;
-
+GravityBall[] ball=new GravityBall[1000];
 void setup() {
   size(800, 600);
-  ball = new GravityBall();
+  
+  for(int i=0;i<ball.length;i++){
+   ball[i]=new GravityBall();
+  }
 }
 
 
@@ -10,22 +12,25 @@ void setup() {
 
 void draw() {
   background(0);
-  ball.bounce();
-  ball.move();
-  ball.display();
+  for(int i=0;i<ball.length;i++){
+  ball[i].bounce();
+  ball[i].move();
+  ball[i].display();
+  
+  }
 }
 
 class GravityBall {
   PVector loc;  //location
   PVector vel; //velocity
-  int sz;      //size
+  float sz;      //size
   PVector grav;  //acceleration 
 
   GravityBall() {
-    loc = new PVector(width/2, height/2); 
-    vel = new PVector(5, 1);
+    loc = new PVector(random(0,width), random(0,height)); 
+    vel = new PVector(random(0,5), random(0,1));
     grav = new PVector(0, .1);
-    sz = 40;
+    sz = random(0,100);
   }
 
 
