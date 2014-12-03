@@ -1,44 +1,59 @@
-float locx, locy;  //location
-float velx, vely; //velocity
-int sz=20;
-float grav;
-float wind;
+GravityBall ball;
+
 void setup() {
   size(800, 600);
-  locx=width/2;
-  locy=height/2;
-  velx=5;
-  vely=1;
-  grav=1;
-  wind=0;
+  ball = new GravityBall();
 }
+
+
+
 
 void draw() {
   background(0);
-  vely+=grav;
-  locx+=velx;
-  locy+=vely;
-velx+=wind;
-  ellipse(locx, locy, sz, sz); 
-  if (locy+sz/2>=height) {
-    vely=-abs(vely);
-    locy=height-sz/2;
-    velx*=.95;
-  }
-  if (locy-sz/2<=0) {
-    vely*=-1;
-  }
-  if (locx+sz/2>width) {
-    velx=-abs(velx)*.9;
-  }
-  if (locx-sz<0) {
-    velx=abs(velx)*.9;
-  }
+  ball.bounce();
+  ball.move();
+  ball.display();
 }
 
-void keyPressed() {
-  if (key=='d') {
-    wind+=10;
+class GravityBall {
+  PVector loc;  //location
+  PVector vel; //velocity
+  int sz;      //size
+  PVector grav;  //acceleration 
+
+  GravityBall() {
+    loc = new PVector(width/2, height/2); 
+    vel = new PVector(5, 1);
+    grav = new PVector(0, .1);
+    sz = 40;
+  }
+
+
+  void display() {
+    fill(255);
+    ellipse(loc.x, loc.y, sz, sz);
+  }
+
+  void move() {
+    vel.add(grav);
+    loc.add(vel);
+  }
+
+  void bounce() {
+    if (loc.y+sz/2>=height) {
+      vel.y=-abs(vel.y);
+      loc.y=height-sz/2;
+      vel.x*=.95;
+    }
+    if (loc.y-sz/2<=0) {
+      vel.y*=-1;
+    }
+    if (loc.x+sz/2>width) {
+      vel.x=-abs(vel.x)*.9;
+    }
+    if (loc.x-sz/2<0) {
+      vel.x=abs(vel.x)*.9;
+    }
   }
 }
 
