@@ -9,3 +9,35 @@ property-varaible contained by a class
 method-function of a class
 
 constructor-initialize an individual object of a class
+
+//first define class,
+
+class GravityBall{
+//list info we need to track each GravityBall
+//location
+//velocity
+//acceleration
+//size
+
+//declare our variables
+PVector loc,vel,acc;
+float sz;
+
+//create the constructor which lets us initialize variables
+
+GravityBall(){
+
+sz=50
+loc=newPvector(width/2,100);
+vel=newPVector(0,0);
+acc=new PVector(0,0.1);
+
+	}
+
+
+//////////below we will be defining methods, which are things GravityBall will be able to do/////////
+
+
+
+
+}
