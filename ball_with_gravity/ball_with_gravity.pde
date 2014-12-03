@@ -1,4 +1,4 @@
-GravityBall[] ball=new GravityBall[1000];
+GravityBall[] ball=new GravityBall[10];
 void setup() {
   size(800, 600);
   
