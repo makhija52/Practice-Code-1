@@ -1,9 +1,17 @@
+
+///////////////////////////////////////////////////
+//                                               //
+//          Defined Gravity Ball Array           //
+//                                               //
+///////////////////////////////////////////////////
+
+
 GravityBall[] ball=new GravityBall[10];
 void setup() {
   size(800, 600);
-  
-  for(int i=0;i<ball.length;i++){
-   ball[i]=new GravityBall();
+
+  for (int i=0; i<ball.length; i++) {
+    ball[i]=new GravityBall();
   }
 }
 
@@ -12,13 +20,29 @@ void setup() {
 
 void draw() {
   background(0);
-  for(int i=0;i<ball.length;i++){
-  ball[i].bounce();
-  ball[i].move();
-  ball[i].display();
-  
+///////////////////////////////////////////////////
+//                                               //
+//              Ball Array For Loop              //
+//                                               //
+///////////////////////////////////////////////////
+
+  for (int i=0; i<ball.length; i++) {
+    ball[i].bounce();
+    ball[i].move();
+    ball[i].display();
+    for (int j = 0; j < ball.length; j++) {
+      if(i!=j){
+      ball[i].collision(ball[j]);
+      }
+    }
   }
 }
+
+///////////////////////////////////////////////////
+//                                               //
+//       Constructor for ravityBall Class        //
+//                                               //
+///////////////////////////////////////////////////
 
 class GravityBall {
   PVector loc;  //location
@@ -27,22 +51,37 @@ class GravityBall {
   PVector grav;  //acceleration 
 
   GravityBall() {
-    loc = new PVector(random(0,width), random(0,height)); 
-    vel = new PVector(random(0,5), random(0,1));
+    loc = new PVector(random(0, width), random(0, height)); 
+    vel = new PVector(random(0, 5), random(0, 1));
     grav = new PVector(0, .1);
-    sz = random(0,100);
+    sz = random(0, 100);
   }
 
+///////////////////////////////////////////////////
+//                                               //
+//               A Ball is made                  //
+//                                               //
+///////////////////////////////////////////////////
 
   void display() {
     fill(255);
     ellipse(loc.x, loc.y, sz, sz);
   }
+///////////////////////////////////////////////////
+//                                               //
+//                Balls move                     //
+//                                               //
+///////////////////////////////////////////////////
 
   void move() {
-    vel.add(grav);
+   // vel.add(grav);
     loc.add(vel);
   }
+///////////////////////////////////////////////////
+//                                               //
+//          Balls bounce off walls               //
+//                                               //
+///////////////////////////////////////////////////
 
   void bounce() {
     if (loc.y+sz/2>=height) {
@@ -58,6 +97,18 @@ class GravityBall {
     }
     if (loc.x-sz/2<0) {
       vel.x=abs(vel.x)*.9;
+    }
+  }
+
+///////////////////////////////////////////////////
+//                                               //
+//          Balls bounce off each other          //
+//                                               //
+///////////////////////////////////////////////////
+  void collision(GravityBall other) {
+    if (loc.dist(other.loc)<sz/2+other.sz/2) {
+      vel=PVector.sub(loc, other.loc);
+      vel.normalize();
     }
   }
 }
