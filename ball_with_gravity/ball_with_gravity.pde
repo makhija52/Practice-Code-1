@@ -22,7 +22,7 @@ void draw() {
   background(0);
 ///////////////////////////////////////////////////
 //                                               //
-//              Ball Array For Loop              //
+//              Ball Array For Loops             //
 //                                               //
 ///////////////////////////////////////////////////
 
@@ -108,7 +108,8 @@ class GravityBall {
   void collision(GravityBall other) {
     if (loc.dist(other.loc)<sz/2+other.sz/2) {
       vel=PVector.sub(loc, other.loc);
-      vel.normalize();
+      //vel.normalize();
+      background(random(255),random(255),random(255));
     }
   }
 }
