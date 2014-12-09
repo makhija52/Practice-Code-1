@@ -40,4 +40,26 @@ acc=new PVector(0,0.1);
 
 
 
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+Array has a fixed length
+ArrayList size is determined by how many items in the list
+add to the ArrayList using the .add() method
+Array lets us work directly with the contents, but an ArrayList doesnt
+bouncyBall b =balls.get(0); //created a placeholder called b to store the item you want to work with
+
+
+ArrayList <BouncyBall> = new ArrayList<BouncyBall>();
+
+
+
+
+
 }
