@@ -1,8 +1,9 @@
 ArrayList<Particle> allmyparticles=new ArrayList<Particle>();
-
+PImage golfball;
 void setup() {
   size(800, 600);
   noStroke();
+  golfball = loadImage("golf-ball1.jpg");
 }
 
 
@@ -25,15 +26,16 @@ class Particle {
   PVector loc, vel, a;
   float sz;
   Particle() {
-    loc=new PVector(width/2, height*.2);
+    loc=new PVector(width/2, height*.5);
     vel=new PVector(random(-3, 3), random(-5, -2));
     a=new PVector(0, .05);
     sz=random(3, 40);
   }
 
   void display() {
-    ellipse(loc.x, loc.y, sz, sz);
-    fill(random(255),random(255),random(255));
+    image(golfball,loc.x,loc.y,golfball.width*.1,golfball.height*.1);
+//    ellipse(loc.x, loc.y, sz, sz);
+//    fill(random(255),random(255),random(255));
   }
   void move() {
     vel.add(a);
